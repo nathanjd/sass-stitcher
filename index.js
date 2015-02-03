@@ -4,10 +4,7 @@ var fs = require('fs'),
 
 	Package = require('./lib/package'),
 	buildDependencyGraph = require('./lib/build-dependency-graph'),
-	uniqueDependencyOrder = require('./lib/unique-dependency-order'),
-
-	Foo = require('@nathanjd/foo'),
-	Baz = require('@nathanjd/baz');
+	uniqueDependencyOrder = require('./lib/unique-dependency-order');
 
 function getSassImports(entryPath, cwd, npmScope) {
 	// Build dependency graph.
@@ -45,5 +42,3 @@ function getSassImports(entryPath, cwd, npmScope) {
 };
 
 module.exports = getSassImports;
-
-console.log(getSassImports('index.js', process.cwd(), '@nathanjd'));
