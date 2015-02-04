@@ -5,5 +5,5 @@ For importing sass styles from a project's npm dependencies.
 ```
 var getSassImports = require('sass-stitcher');
 
-var imports = getSassImports(entryPath, cwd, npmScope));
+var imports = getSassImports(entryPath, cwd));
 ```

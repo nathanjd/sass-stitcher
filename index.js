@@ -18,11 +18,7 @@ function getSassImports(entryPath, cwd) {
 
 		imports = [];
 
-	console.log('dep graph', dependencyGraph);
-	console.log('ordered', sortedDependencies);
-	console.log('uniqued', sortedUniqueDependencies);
-
-	// Output import statements to a stream
+	// Build import statements.
 	sortedUniqueDependencies.forEach(function (pkgId) {
 		var pkg = Package.prototype.cache[pkgId];
 
@@ -30,10 +26,9 @@ function getSassImports(entryPath, cwd) {
 			return;
 		}
 
-		// Build import statements.
 		if (pkg.settings.styles && pkg.settings.styles.length) {
 			pkg.settings.styles.forEach(function (style) {
-				imports.push('@import "' + pkg.dir + '/' + style + '";');
+				imports.push('@import "' + pkg.path + '/' + style + '";');
 			});
 		}
 	});
