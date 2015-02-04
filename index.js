@@ -6,9 +6,9 @@ var fs = require('fs'),
 	buildDependencyGraph = require('./lib/build-dependency-graph'),
 	uniqueDependencyOrder = require('./lib/unique-dependency-order');
 
-function getSassImports(entryPath, cwd, npmScope) {
+function getSassImports(entryPath, cwd) {
 	// Build dependency graph.
-	var dependencyGraph = buildDependencyGraph('index.js', cwd, npmScope),
+	var dependencyGraph = buildDependencyGraph('index.js', cwd),
 
 		// Get flat order from graph.
 		sortedDependencies = dependencyGraph.overallOrder(),
