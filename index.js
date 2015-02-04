@@ -9,18 +9,17 @@ var fs = require('fs'),
 function getSassImports(entryPath, cwd, npmScope) {
 	// Build dependency graph.
 	var dependencyGraph = buildDependencyGraph('index.js', cwd, npmScope),
+
+		// Get flat order from graph.
+		sortedDependencies = dependencyGraph.overallOrder(),
+
+		// Replace all deps with the latest version already present in the graph.
+		sortedUniqueDependencies = uniqueDependencyOrder(sortedDependencies);
+
 		imports = [];
 
 	console.log('dep graph', dependencyGraph);
-
-	// Get flat order from graph.
-	var sortedDependencies = dependencyGraph.overallOrder();
-
 	console.log('ordered', sortedDependencies);
-
-	// Replace all deps with the latest version already present in the graph.
-	sortedUniqueDependencies = uniqueDependencyOrder(sortedDependencies);
-
 	console.log('uniqued', sortedUniqueDependencies);
 
 	// Output import statements to a stream
@@ -31,6 +30,7 @@ function getSassImports(entryPath, cwd, npmScope) {
 			return;
 		}
 
+		// Build import statements.
 		if (pkg.settings.styles && pkg.settings.styles.length) {
 			pkg.settings.styles.forEach(function (style) {
 				imports.push('@import "' + pkg.dir + '/' + style + '";');
